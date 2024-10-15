@@ -1,0 +1,5 @@
+fastapi~=0.95
+pydantic~=1.10
+python-jose~=3.3
+requests~=2.30
+uvicorn~=0.22
