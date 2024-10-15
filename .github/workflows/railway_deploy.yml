@@ -1,0 +1,47 @@
+name: Deploy to Railway
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  workflow_dispatch: 
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Upgrade pip
+        run: |
+          python3 -m pip install --upgrade pip
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install -e .
+          python3 -m pip install -r ./requirements/doc.txt
+
+      - name: Build sphinx docs
+        run: |
+          cd docs
+          make html
+
+      ### Railway CLI Deployment Steps ###
+      - name: Install Railway CLI
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/railwayapp/cli/master/install.sh | sh
+          echo 'export PATH="$HOME/.railway/bin:$PATH"' >> $GITHUB_ENV
+
+      - name: Authenticate Railway
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: railway login --token $RAILWAY_TOKEN
+
+      - name: Deploy to Railway
+        run: railway up --no-confirm
