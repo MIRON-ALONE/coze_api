@@ -38,10 +38,7 @@ jobs:
           curl -fsSL https://raw.githubusercontent.com/railwayapp/cli/master/install.sh | sh
           echo 'export PATH="$HOME/.railway/bin:$PATH"' >> $GITHUB_ENV
 
-      - name: Authenticate Railway
+      - name: Deploy
+        run: railway up
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: railway login --token $RAILWAY_TOKEN
-
-      - name: Deploy to Railway
-        run: railway up --no-confirm
