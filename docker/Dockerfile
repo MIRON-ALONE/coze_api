@@ -8,5 +8,5 @@ COPY ./requirements/base.txt .
 RUN pip install -r base.txt
 
 COPY ./scripts /app
-COPY ./coze_api /app
+COPY ./ /app
 WORKDIR /app
