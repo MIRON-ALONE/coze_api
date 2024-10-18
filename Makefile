@@ -49,3 +49,6 @@ test:
 	python3 -m pip install -r requirements/dev.txt
 	python3 -m pip install -e .
 	python3 -m pytest
+
+run: 
+	python3 $(SOURCE_DIR)/main.py
