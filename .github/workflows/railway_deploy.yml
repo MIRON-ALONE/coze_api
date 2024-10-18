@@ -40,6 +40,6 @@ jobs:
           echo 'export PATH="$HOME/.railway/bin:$PATH"' >> $GITHUB_ENV
 
       - name: Deploy
-        run: railway up
+        run: railway up --service coze_api
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}

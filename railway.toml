@@ -1,0 +1,8 @@
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "./docker/Dockerfile"
+
+[deploy]
+startCommand = "make -f Makefile run"
+numReplicas = 1
+restartPolicyType = "never"
