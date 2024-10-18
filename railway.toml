@@ -3,6 +3,6 @@ builder = "DOCKERFILE"
 dockerfilePath = "./docker/Dockerfile"
 
 [deploy]
-startCommand = "ls"
+startCommand = "ls && make run"
 numReplicas = 1
 restartPolicyType = "never"
