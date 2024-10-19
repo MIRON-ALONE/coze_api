@@ -14,8 +14,6 @@ async def create_message(create_message_dto: CreateMessageDto):
     
     bot_id = os.getenv("COZE_BOT_ID")
     coze_api_token = os.getenv("COZE_API_TOKEN")
-    print(bot_id)
-    print(coze_api_token)
 
     request_data = {
         "stream": True,
@@ -37,7 +35,6 @@ async def create_message(create_message_dto: CreateMessageDto):
    
     async with httpx.AsyncClient() as client:
         response = await client.post(URL, json=request_data, headers=headers, params=params)
-    print(response)
 
     parsed_events = parse_coze_data(response.text)
     completed_message = next((event['data'] for event in parsed_events if event['event'] == "conversation.message.completed"), None)
